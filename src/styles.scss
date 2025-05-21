@@ -1,0 +1,23 @@
+body.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+body.dark-mode input,
+body.dark-mode button {
+  background-color: #1e1e1e;
+  color: #fff;
+  border-color: #333;
+}
+
+body.dark-mode select {
+  background-color: #1e1e1e;
+  color: #ffffff;
+  border-color: #333;
+}
+
+body:not(.dark-mode) select {
+  background-color: #ffffff;
+  color: #000000;
+  border-color: #ccc;
+}

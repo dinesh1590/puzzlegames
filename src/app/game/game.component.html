@@ -1,0 +1,71 @@
+<button class="help-btn" (click)="showHelp = true">❓</button>
+
+<button class="dark-mode-btn" (click)="toggleDarkMode()">🌙</button>
+
+
+
+<div class="wordhunt-container">
+  <h2>WordHunt Game</h2>
+
+  <div *ngIf="!gameStarted" class="game-settings">
+    <div class="settings-container">
+      <label class="setting-label">
+      Word Length:
+    <select [(ngModel)]="selectedLength" class="custom-select">
+      <option *ngFor="let len of lengths" [value]="len">{{ len }}</option>
+    </select>
+  </label>
+
+  <label class="setting-label">
+    Chances:
+    <select [(ngModel)]="selectedChances" class="custom-select">
+      <option *ngFor="let c of chances" [value]="c">{{ c }}</option>
+    </select>
+  </label>
+  </div>
+
+    <button class="submit-btn" (click)="startGame()">Start Game</button>
+  </div>
+
+  <div *ngIf="gameStarted">
+    <p>Guess the {{ selectedLength }}-letter word in {{ maxAttempts }} tries!</p>
+
+    <div *ngIf="!gameOver">
+      <input  #guessInput [(ngModel)]="guess" [maxlength]="selectedLength" placeholder="Enter word"  (keydown.enter)="submitGuess()" (keypress)="allowOnlyLetters($event)"/>
+      <button class="submit-btn" (click)="submitGuess()">Submit</button>
+    </div>
+
+    <p>{{ message }}</p>
+
+    <p class="modal-backdrop" *ngIf="finalmsg">{{ finalmsg }}</p>
+
+    <div class="attempts">
+      <div *ngFor="let attempt of attempts" class="row">
+        <span class="word">{{ attempt.word }}</span>
+        <span class="icons">
+          <span *ngFor="let icon of attempt.results" class="icon">{{ icon }}</span>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="gameOver">
+      <button class="submit-btn" (click)="startGame()">🎮 Play Again</button>
+      <button class="submit-btn" (click)="startover()">🚀 Start Fresh</button>
+  </div>
+</div>
+
+
+<div class="help-popup" *ngIf="showHelp">
+  <div class="help-content">
+    <h2>Game Rules</h2>
+    <ul>
+      <li>✅: Correct letter in the correct spot.</li>
+      <li>⭐: Letter exists but in the wrong spot.</li>
+      <li>❌: Letter not in the word.</li>
+    </ul>
+    <p>🎯 You win by guessing the word within your selected number of chances!</p>
+    <button (click)="showHelp = false" aria-label="Close game rules popup">Close</button>
+  </div>
+</div>
+
+
