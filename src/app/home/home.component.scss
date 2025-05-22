@@ -1,0 +1,27 @@
+.home-container {
+  text-align: center;
+  padding: 40px;
+}
+
+.game-options {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.game-card {
+  background: #282c34;
+  color: #fff;
+  padding: 20px 40px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-size: 24px;
+  transition: 0.3s;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.game-card:hover {
+  background-color: #444;
+  transform: scale(1.05);
+}

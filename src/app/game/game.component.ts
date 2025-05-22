@@ -3,6 +3,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ViewChild, ElementRef } from '@angular/core';
+import confetti from 'canvas-confetti';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -31,7 +33,7 @@ export class GameComponent {
   finalmsg ='';
 
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   @ViewChild('guessInput') guessInputRef!: ElementRef<HTMLInputElement>;
 
@@ -84,6 +86,7 @@ export class GameComponent {
 
     if (resultIcons.every(r => r === '✅')) {
       this.showFinalMsg('🎉 Boom! You cracked the code!');
+       this.launchConfetti();
       this.gameOver = true;
     } else if (this.attempts.length >= this.maxAttempts) {
       this.showFinalMsg(`❌ Game Over. The word was ${this.correctWord}.`);
@@ -141,10 +144,12 @@ private clearMsgTimeout: any = null;
       clearTimeout(this.clearMsgTimeout);
     }
 
+    
+
     this.clearMsgTimeout = setTimeout(() => {
       this.finalmsg = '';  // triggers *ngIf to remove element from DOM
       this.clearMsgTimeout = null;
-    }, 2000);
+    }, 3000);
   }
 
   startover() {
@@ -159,6 +164,53 @@ private clearMsgTimeout: any = null;
     event.preventDefault();
   }
 }
+
+launchConfetti() {
+  const duration = 4 * 1000;
+  const end = Date.now() + duration;
+
+  (function frame() {
+    confetti({
+      particleCount: 8,
+      angle: 80,
+      spread: 100,
+      origin: { x: 0},
+    });
+    confetti({
+      particleCount: 8,
+      angle: 90,
+      spread: 55,
+      origin: { y: 0.6 },
+    });
+    confetti({
+      particleCount: 8,
+      angle: 100,
+      spread: 100,
+      origin: { x: 1 },
+    });
+
+    if (Date.now() < end) {
+      requestAnimationFrame(frame);
+    }
+  })();
+}
+
+
+  goBack() {
+    this.router.navigate(['/']);
+  }
+
+  share() {
+    if (navigator.share) {
+      navigator.share({
+        title: 'Puzzle Game',
+        text: 'Try this Lights Out game!',
+        url: window.location.href
+      });
+    } else {
+      alert('Sharing is not supported on this browser.');
+    }
+  }
 
 
 }

@@ -1,0 +1,54 @@
+<div class="app-banner">
+  <button (click)="goBack()">🔙 Back</button>
+  <button (click)="share()">🔗 Share</button>
+</div>
+
+
+<button class="help-btn" (click)="showHelp = true">❓</button>
+
+
+<div class="wordhunt-container">
+
+<label class="setting-label">
+  Grid Size:
+  <select [(ngModel)]="gridSize" (change)="onGridSizeChange()" class="custom-select">
+    <option *ngFor="let size of gridSizes" [value]="size">{{ size }} x {{ size }}</option>
+  </select>
+</label>
+
+<h1>Lights Out 💡</h1>
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div *ngFor="let row of grid; let i = index" class="row">
+      <div
+        *ngFor="let light of row; let j = index"
+        class="cell"
+        [class.on]="light"
+        (click)="toggleLight(i, j)"
+      ></div>
+    </div>
+  </div>
+</div>
+
+<p class="modal-backdrop" *ngIf="isWin">🎉 You turned off all the lights!</p>
+
+<button class="submit-btn" (click)="resetGame()">🔄 Reset</button>
+
+</div>
+
+
+
+<div class="help-popup" *ngIf="showHelp">
+  <div class="help-content">
+    <h2>Game Rules</h2>
+    <ul>
+      <li>🟡: Each yellow box is a light that's ON.</li>
+      <li>🟤:Dark boxes are lights that are OFF.</li>
+      <li>👆:Click a box to toggle it and its 4 neighbors (up, down, left, right).</li>
+      <li>🎯:Goal: Turn all lights OFF to win the game!</li>
+    </ul>
+     <button (click)="showHelp = false" aria-label="Close game rules popup">Close</button>
+  </div>
+</div>
+
