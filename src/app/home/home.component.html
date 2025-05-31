@@ -1,7 +1,9 @@
 <div class="home-container">
   <h1>🎮 Select a Game</h1>
   <div class="game-options">
-    <a routerLink="/lights-out" class="game-card">💡 Lights Out</a>
-    <a routerLink="/word-hunt" class="game-card">🧠 Word Hunt</a>
+    <a *ngIf="games.lightsOut" routerLink="/lights-out" class="game-card">💡 Lights Out</a>
+    <a *ngIf="games.wordHunt" routerLink="/word-hunt" class="game-card">🧠 Word Hunt</a>
+    <a *ngIf="games.chat" routerLink="/chat" class="game-card">💬 Chat with Strangers</a>
+    <a *ngIf="games.flames" routerLink="/flames" class="game-card">🔥 Flames</a>
   </div>
 </div>

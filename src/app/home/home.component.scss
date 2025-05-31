@@ -10,6 +10,15 @@
   margin-top: 30px;
 }
 
+@media (max-width: 768px) {
+  .game-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 20px;
+  }
+}
+
+
 .game-card {
   background: #282c34;
   color: #fff;

@@ -1,16 +1,17 @@
-import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { ViewChild, ElementRef } from '@angular/core';
 import confetti from 'canvas-confetti';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
 
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [CommonModule, FormsModule,HttpClientModule],
+  imports: [CommonModule, FormsModule, HttpClientModule],
   templateUrl: './game.component.html',
   styleUrl: './game.component.scss'
 })

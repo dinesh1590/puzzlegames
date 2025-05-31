@@ -1,0 +1,12 @@
+<div class="flames-container">
+  <h2>FLAMES Game 💖</h2>
+  <div class="input-group">
+    <input type="text" placeholder="Your Name" [(ngModel)]="name1">
+    <input type="text" placeholder="Crush's Name" [(ngModel)]="name2">
+  </div>
+  <button (click)="calculateFLAMES()">Check FLAMES</button>
+
+  <div *ngIf="result" class="result">
+    <h3>Result: {{ result }}</h3>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<div class="game-container">
+  <h1>Whack-a-Mole!</h1>
+  <h2>Score: {{ score }}</h2>
+
+  <div class="grid">
+    <div
+      *ngFor="let cell of [].constructor(gridSize); let i = index"
+      class="cell"
+      [class.mole]="i === moleIndex"
+      (click)="whack(i)"
+    ></div>
+  </div>
+</div>
