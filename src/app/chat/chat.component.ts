@@ -56,6 +56,7 @@ export class ChatComponent implements AfterViewChecked {
   }
 
     this.wsService.connect('ws://localhost:8080/ws');
+    //this.wsService.connect('wss://nanopg-production.up.railway.app/ws');
 
     this.wsService.autoJoin({
       name: this.playerName,

@@ -1,0 +1,1 @@
+ this.wsService.connect('wss://nanopg-production.up.railway.app/ws');

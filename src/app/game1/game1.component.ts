@@ -83,7 +83,7 @@ export class Game1Component implements OnInit {
   }
 
   launchConfetti() {
-  const duration = 4 * 1000;
+  const duration = 3 * 1000;
   const end = Date.now() + duration;
 
   (function frame() {
@@ -93,12 +93,7 @@ export class Game1Component implements OnInit {
       spread: 150,
       origin: { x: 0},
     });
-    confetti({
-      particleCount: 8,
-      angle: 90,
-      spread: 55,
-      origin: { y: 0.6 },
-    });
+    
     confetti({
       particleCount: 5,
       angle: 100,

@@ -167,7 +167,7 @@ private clearMsgTimeout: any = null;
 }
 
 launchConfetti() {
-  const duration = 4 * 1000;
+  const duration = 3 * 1000;
   const end = Date.now() + duration;
 
   (function frame() {
@@ -177,12 +177,7 @@ launchConfetti() {
       spread: 100,
       origin: { x: 0},
     });
-    confetti({
-      particleCount: 8,
-      angle: 90,
-      spread: 55,
-      origin: { y: 0.6 },
-    });
+   
     confetti({
       particleCount: 8,
       angle: 100,
