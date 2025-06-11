@@ -1,26 +1,35 @@
+<!-- Join Form -->
 <div *ngIf="!joined" class="join-form">
-  <h2>Join Chat</h2>
+  <h2>Join the Chat</h2>
   <form (ngSubmit)="joinChat()">
-    <label>Name: <input [(ngModel)]="playerName" name="name" required /></label><br />
-    <label>Age: <input type="number" [(ngModel)]="playerAge" name="age" required /></label><br />
+    <label>
+      Name:
+      <input [(ngModel)]="playerName" name="name" required />
+    </label>
+    <label>
+      Age:
+      <input type="number" [(ngModel)]="playerAge" name="age" required />
+    </label>
     <label>
       Gender:
       <select [(ngModel)]="playerGender" name="gender" required>
         <option value="" disabled selected>Select Gender</option>
         <option value="Male">Male</option>
         <option value="Female">Female</option>
-        <option value="Other">Other</option>
       </select>
-    </label><br />
+    </label>
     <button type="submit">Join Chat</button>
   </form>
 </div>
 
+<!-- Chat Interface -->
 <div *ngIf="joined" class="chat-container">
+  <!-- Sidebar -->
   <div class="sidebar">
     <div class="my-details">
-      {{ playerName }} {{ getGenderInitial(playerGender) }}{{ playerAge }}
+      👤 {{ playerName }} {{ getGenderInitial(playerGender) }}{{ playerAge }}
     </div>
+
     <h3>Online Users</h3>
     <ul>
       <li
@@ -33,21 +42,29 @@
     </ul>
   </div>
 
-  <!-- Dynamic chat boxes -->
+  <!-- Dynamic Chat Boxes -->
   <div class="chats">
-    <div *ngFor="let userId of getOpenChatUserIds()" class="chat-box">
-      <h3>Chat with {{ openChats[userId].user.name }}</h3>
-       <button class="close-btn" (click)="closeChat(userId)">✖</button>
-      <div class="chat-messages">
-        <div *ngFor="let msg of openChats[userId].messages" class="chat-message">
-          {{ msg }}
+    <div *ngFor="let userId of getOpenChatUserIds()" class="chat-box" [class.minimized]="openChats[userId].minimized">
+      <div class="chat-header">
+        <h3>💬 {{ openChats[userId].user.name }}</h3>
+        <div class="chat-controls">
+          <button (click)="toggleMinimize(userId)">🔽</button>
+          <button (click)="closeChat(userId)">❌</button>
         </div>
       </div>
 
-      <form (ngSubmit)="sendMessage(userId)" class="chat-form">
-        <input [(ngModel)]="openChats[userId].newMessage" name="msg-{{userId}}" required placeholder="Type your message..." />
-        <button type="submit">Send</button>
-      </form>
+      <div class="chat-body" *ngIf="!openChats[userId].minimized">
+        <div class="chat-messages" #scrollContainer>
+          <div *ngFor="let msg of openChats[userId].messages" class="chat-message" [ngClass]="{ 'my-message': isMyMessage(msg), 'their-message': !isMyMessage(msg) }">
+            {{ msg }}
+          </div>
+        </div>
+
+        <form (ngSubmit)="sendMessage(userId)" class="chat-form">
+          <input #messageInput [(ngModel)]="openChats[userId].newMessage" name="msg-{{userId}}" (keydown.enter)="sendMessage(userId)" required placeholder="Type a message..." />
+          <button type="submit">Send</button>
+        </form>
+      </div>
     </div>
   </div>
 </div>

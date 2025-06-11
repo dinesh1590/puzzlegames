@@ -20,6 +20,17 @@ name1: string = '';
     const cleanName1 = this.name1.toLowerCase().replace(/\s/g, '');
     const cleanName2 = this.name2.toLowerCase().replace(/\s/g, '');
 
+
+  if (!this.name1 || this.name1.length < 3 || !/^[a-zA-Z]+$/.test(this.name1)) {
+    alert('Your name must be at least 3 letters and only contain letters.');
+    return;
+  }
+
+  if (!this.name2 || this.name2.length < 3 || !/^[a-zA-Z]+$/.test(this.name2)) {
+    alert("Crush's name must be at least 3 letters and only contain letters.");
+    return;
+  }
+
     let a = cleanName1.split('');
     let b = cleanName2.split('');
 
