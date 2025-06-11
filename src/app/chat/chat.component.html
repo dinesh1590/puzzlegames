@@ -1,26 +1,53 @@
-<div class="chat-container">
-  <h2>
-    <i class="fa fa-user"></i>
-    Welcome, <span *ngIf="!editName">{{ playerName }}</span>
-    <input *ngIf="editName" [(ngModel)]="playerName" name="name" class="name-input" />
-    <button (click)="editName = !editName" type="button">
-      <i class="fa" [ngClass]="editName ? 'fa-check' : 'fa-edit'"></i>
-    </button>
-  </h2>
+<div *ngIf="!joined" class="join-form">
+  <h2>Join Chat</h2>
+  <form (ngSubmit)="joinChat()">
+    <label>Name: <input [(ngModel)]="playerName" name="name" required /></label><br />
+    <label>Age: <input type="number" [(ngModel)]="playerAge" name="age" required /></label><br />
+    <label>
+      Gender:
+      <select [(ngModel)]="playerGender" name="gender" required>
+        <option value="" disabled selected>Select Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+    </label><br />
+    <button type="submit">Join Chat</button>
+  </form>
+</div>
 
-  <div class="chat-box">
-    <div *ngFor="let msg of chatMessages" class="chat-message">
-      <i class="fa fa-comment"></i> {{ msg }}
+<div *ngIf="joined" class="chat-container">
+  <div class="sidebar">
+    <div class="my-details">
+      {{ playerName }} {{ getGenderInitial(playerGender) }}{{ playerAge }}
     </div>
+    <h3>Online Users</h3>
+    <ul>
+      <li
+        *ngFor="let user of onlineUsers"
+        (click)="openChat(user)"
+        [class.selected]="openChats[user.id]"
+      >
+        {{ user.name }} ({{ user.age }}, {{ user.gender }})
+      </li>
+    </ul>
   </div>
 
-  <form (ngSubmit)="sendMessage()" class="chat-form">
-    <input
-      [(ngModel)]="newMessage"
-      name="message"
-      required
-      placeholder="Type your message..."
-    />
-    <button type="submit"><i class="fa fa-paper-plane"></i></button>
-  </form>
+  <!-- Dynamic chat boxes -->
+  <div class="chats">
+    <div *ngFor="let userId of getOpenChatUserIds()" class="chat-box">
+      <h3>Chat with {{ openChats[userId].user.name }}</h3>
+       <button class="close-btn" (click)="closeChat(userId)">✖</button>
+      <div class="chat-messages">
+        <div *ngFor="let msg of openChats[userId].messages" class="chat-message">
+          {{ msg }}
+        </div>
+      </div>
+
+      <form (ngSubmit)="sendMessage(userId)" class="chat-form">
+        <input [(ngModel)]="openChats[userId].newMessage" name="msg-{{userId}}" required placeholder="Type your message..." />
+        <button type="submit">Send</button>
+      </form>
+    </div>
+  </div>
 </div>

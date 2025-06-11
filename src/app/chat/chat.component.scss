@@ -69,3 +69,38 @@
 .chat-form button:hover {
   background: #1976d2;
 }
+
+.my-details {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.chat-container {
+  display: flex;
+  gap: 20px;
+}
+
+.sidebar {
+  width: 200px;
+  background: #f0f0f0;
+  padding: 10px;
+}
+
+.chat-box {
+  border: 1px solid #ccc;
+  padding: 10px;
+  width: 300px;
+  background: #fff;
+  margin-bottom: 10px;
+}
+
+.chat-message {
+  margin: 5px 0;
+}
+
+.chat-form {
+  display: flex;
+  gap: 5px;
+}
+

@@ -4,29 +4,64 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class WebsocketService {
-private socket!: WebSocket;
+private socket: WebSocket | null = null;
+  private messageCallback: ((msg: any) => void) | null = null;
+  private joinPayload: any = null;
+  userId: string | null = null;
 
   connect(url: string): void {
     this.socket = new WebSocket(url);
-  }
 
-  send(data: any): void {
-    if (this.socket.readyState === WebSocket.OPEN) {
-      this.socket.send(JSON.stringify(data));
-    } else {
-      this.socket.addEventListener('open', () => {
-        this.socket.send(JSON.stringify(data));
-      });
-    }
-  }
+    this.socket.onopen = () => {
+      console.log('WebSocket connected');
+      if (this.joinPayload) {
+        this.sendJoin(this.joinPayload);
+      }
+    };
 
-  onMessage(callback: (data: any) => void): void {
     this.socket.onmessage = (event) => {
-      callback(JSON.parse(event.data));
+      const msg = JSON.parse(event.data);
+      if (msg.type === 'init') {
+        this.userId = msg.userId;
+      }
+      if (this.messageCallback) {
+        this.messageCallback(msg);
+      }
+    };
+
+    this.socket.onclose = () => {
+      console.log('WebSocket disconnected');
     };
   }
 
-  close(): void {
-    this.socket.close();
+  onMessage(callback: (msg: any) => void): void {
+    this.messageCallback = callback;
+  }
+
+  send(msg: any): void {
+    if (this.socket && this.socket.readyState === WebSocket.OPEN) {
+      this.socket.send(JSON.stringify(msg));
+    } else {
+      console.warn('WebSocket not open — cannot send:', msg);
+    }
+  }
+
+  autoJoin(payload: any): void {
+    this.joinPayload = payload;
+    if (this.socket && this.socket.readyState === WebSocket.OPEN) {
+      this.sendJoin(payload);
+    }
+    // Else: will send automatically when socket opens
+  }
+
+  private sendJoin(payload: any): void {
+    const joinMsg = {
+      type: 'join',
+      ...payload
+    };
+    this.send(joinMsg);
+    console.log('Sent join:', joinMsg);
   }
 }
+
+

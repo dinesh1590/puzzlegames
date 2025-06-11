@@ -23,8 +23,11 @@ export class HomeComponent {
 
   constructor(private http: HttpClient) {}
 
+  //http://localhost:8080/api/games/config
+  //https://nanopg-production.up.railway.app/api/games/config
+
   ngOnInit(): void {
-    this.http.get<any>('http://localhost:8080/api/games/config')
+    this.http.get<any>('https://nanopg-production.up.railway.app/api/games/config')
       .subscribe(config => {
         this.games = config;
       });
