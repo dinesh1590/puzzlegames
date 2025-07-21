@@ -15,11 +15,12 @@ import { RouterModule } from '@angular/router';
 
 export class HomeComponent {
  games = {
-    lightsOut: true,
-    wordHunt: true,
-    chat: false,
-    flames: true
-  };
+  lightsOut: true,
+  wordHunt: true,
+  chat: false,
+  flames: true,
+  ticTacToe: true
+};
 
   constructor(private http: HttpClient) {}
 

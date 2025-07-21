@@ -1,0 +1,29 @@
+<div class="app-banner">
+  <button (click)="goBack()">🔙 Back</button>
+  <button (click)="share()">🔗 Share</button>
+</div>
+
+<div class="tic-tac-toe-container">
+  <h1>Tic Tac Toe ❌⭕</h1>
+
+  <div class="board">
+    <div 
+      *ngFor="let cell of board; let i = index" 
+      class="cell" 
+      (click)="makeMove(i)">
+      {{ cell }}
+    </div>
+  </div>
+
+  <div *ngIf="winner" class="winner">
+  <ng-container *ngIf="winner === 'Draw'; else winnerBlock">
+    😐 Nobody wins!
+  </ng-container>
+  <ng-template #winnerBlock>
+    🎉 {{ winner }} wins!
+  </ng-template>
+</div>
+
+  <button class="submit-btn" (click)="resetGame()">🔄 Reset</button>
+
+</div>

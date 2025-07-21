@@ -5,6 +5,7 @@ import { Game1Component } from './game1/game1.component';
 import { WhackAMoleComponent } from './whack-a-mole/whack-a-mole.component';
 import { FlamesComponent } from './flames/flames.component';
 import { ChatComponent } from './chat/chat.component';
+import { TicTacToeComponent } from './tic-tac-toe/tic-tac-toe.component';
 
 export const routes: Routes =[
    {path: '', component: HomeComponent },
@@ -13,5 +14,6 @@ export const routes: Routes =[
   { path: 'word-hunt', component:  GameComponent},
   { path: 'whack-a-mole', component:  WhackAMoleComponent},
   { path: 'flames', component:  FlamesComponent},
+  { path: 'tic-tac-toe', component: TicTacToeComponent },
   { path: '**', redirectTo: '' }
 ];

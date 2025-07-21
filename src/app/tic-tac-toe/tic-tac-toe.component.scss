@@ -1,0 +1,109 @@
+/* Center the game on screen */
+.tic-tac-toe-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 1rem;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  text-align: center;
+}
+
+/* Responsive 3x3 board */
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  width: 100%;
+  max-width: 300px;
+  aspect-ratio: 1 / 1;
+}
+
+/* Each square cell */
+.cell {
+  background: #f0f0f0;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #444;
+  cursor: pointer;
+  user-select: none;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  line-height: 1;
+  overflow: hidden;
+  transition: background 0.2s;
+}
+
+.cell:hover {
+  background: #e0e0e0;
+}
+
+/* Winner display */
+.winner {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  color: green;
+  font-weight: bold;
+}
+
+
+
+/* Smaller font on tiny screens */
+@media (max-width: 480px) {
+  .cell {
+    font-size: 2rem;
+  }
+}
+
+.app-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #282c34;
+  padding: 10px 20px;
+  color: white;
+  font-size: 18px;
+  position: sticky;
+  top: 20px;
+  z-index: 1000;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
+button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+button {
+  font-size: 18px;
+  padding: 8px 16px;
+  margin: 5px 3px;
+  cursor: pointer;
+}
+
+.submit-btn {
+  margin-top: 2rem;
+  background-color: #362d2d;
+  color: #fff;
+  border: 2px solid #362d2d;;
+  padding: 10px 18px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.submit-btn:hover {
+  background-color: hsl(0, 0%, 100%);
+  color: #362d2d;
+  border-color: #362d2d;
+}
